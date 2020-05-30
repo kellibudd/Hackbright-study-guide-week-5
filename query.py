@@ -144,11 +144,14 @@ def search_brands_by_name(mystr):
 
     all_brands = Brand.query.filter(Brand.name.ilike(f'%{mystr}%')).all()
 
-    print(all_brands)
+    return all_brands
 
 def get_models_between(start_year, end_year):
     """Returns all Model objects corresponding to models made between
     start_year (inclusive) and end_year (exclusive)."""
 
-    pass
+    # models = Model.query.filter(Model.year >= start_year, Model.year < end_year).all()
 
+    models = Model.query.filter(Model.year.in_(range(start_year,end_year))).all()
+
+    return models
