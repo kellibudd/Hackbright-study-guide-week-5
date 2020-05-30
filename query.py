@@ -142,7 +142,7 @@ def search_brands_by_name(mystr):
     """Returns all Brand objects corresponding to brands whose names include
     the given string."""
 
-    all_brands = Brand.query.filter(Brand.name.ilike('%'+mystr+'%')).all()
+    all_brands = Brand.query.filter(Brand.name.ilike(f'%{mystr}%')).all()
 
     print(all_brands)
 
