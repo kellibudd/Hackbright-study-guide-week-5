@@ -12,22 +12,42 @@ db = SQLAlchemy()
 ##############################################################################
 # Part 1: Compose ORM
 
-# class Brand(db.Model):
-#     """Car brand."""
+class Brand(db.Model):
+    """Car brand."""
 
-#     __tablename__ = "brands"
+    __tablename__ = "brands"
 
-#     pass
+    brand_id = db.Column(db.String(5),
+                        primary_key = True)
+    name = db.Column(db.String(50),
+                    nullable = False)
+    founded = db.Column(db.Integer)
+    headquarters = db.Column(db.String(50))
+    discontinued = db.Column(db.Integer)
 
+    def __repr__(self):
+        return f'<Brand brand_id={self.brand_id} name={self.name}>'
 
-# class Model(db.Model):
-#     """Car model."""
+class Model(db.Model):
+    """Car model."""
 
-#     __tablename__ = "models"
+    __tablename__ = "models"
 
-#     pass
+    model_id = db.Column(db.Integer,
+                        primary_key = True,
+                        autoincrement = True)
+    year = db.Column(db.Integer,
+                    nullable = False)
+    brand_id = db.Column(db.String(5),
+                        db.ForeignKey('brands.brand_id'),
+                        nullable = False)
+    name = db.Column(db.String(50),
+                    nullable = False)
 
-# End Part 1
+    brand = db.relationship('Brand', backref='models')
+
+    def __repr__(self):
+        return f'<Model model_id={self.model_id} name={self.name}>'
 
 
 ##############################################################################
